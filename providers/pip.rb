@@ -123,16 +123,16 @@ end
 
 def install_package(name,version)
   v = "==#{version}" unless version.eql?('latest')
-  shell_out!("pip install#{expand_options(@new_resource.options)}#{expand_virtualenv(can_haz_virtualenv(@new_resource))} #{name}#{v}")
+  shell_out!("pip install#{expand_options(@new_resource.options)}#{expand_virtualenv(can_haz_virtualenv(@new_resource))} #{name}#{v}", :cwd => "/tmp")
 end
 
 def upgrade_package(name, version)
   v = "==#{version}" unless version.eql?('latest')
-  shell_out!("pip install --upgrade#{expand_options(@new_resource.options)}#{expand_virtualenv(can_haz_virtualenv(@new_resource))} #{@new_resource.name}#{v}")
+  shell_out!("pip install --upgrade#{expand_options(@new_resource.options)}#{expand_virtualenv(can_haz_virtualenv(@new_resource))} #{@new_resource.name}#{v}", :cwd => "/tmp")
 end
 
 def remove_package(name, version)
-  shell_out!("pip uninstall -y#{expand_options(@new_resource.options)}#{expand_virtualenv(can_haz_virtualenv(@new_resource))} #{@new_resource.name}")
+  shell_out!("pip uninstall -y#{expand_options(@new_resource.options)}#{expand_virtualenv(can_haz_virtualenv(@new_resource))} #{@new_resource.name}", :cwd => "/tmp")
 end
 
 def expand_virtualenv(virtualenv)
